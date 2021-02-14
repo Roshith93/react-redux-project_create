@@ -3,6 +3,7 @@ import { Navbar } from './components/layout/NavBar'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { ProjectDetails } from './components/projects/ProjectDetails'
 import { SignIn } from './components/auth/SignIn'
+import { SignUp } from './components/auth/SignUp'
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route exact path='/' component={Dashboard} />
         <Route exact path='/project/:id' component={ProjectDetails} />
         <Route exact path='/signin' component={SignIn} />
+        <Route exact path='/signup' component={SignUp} />
       </Switch>
     </Router>
   )
