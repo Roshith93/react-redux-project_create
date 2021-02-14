@@ -1,4 +1,5 @@
-export const ProjectDetails = () => {
+export const ProjectDetails = (props) => {
+  const id = props.match.params.id
   return (
     <div className='container section project-details'>
       <div className='card z-depth-0'>
@@ -11,7 +12,7 @@ export const ProjectDetails = () => {
           </p>
         </div>
         <div className='card-action grey lighten-4 grey-text'>
-          <div>posted by Anonymous</div>
+          <div>{id}</div>
           <div>today morning</div>
         </div>
       </div>
