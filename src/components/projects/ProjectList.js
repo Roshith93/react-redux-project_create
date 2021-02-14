@@ -1,10 +1,10 @@
-import {ProjectSummary} from './ProjectSummary'
+import { ProjectSummary } from './ProjectSummary'
 export const ProjectList = () => {
   return (
     <div className='project-list section'>
-     <ProjectSummary/>
-     <ProjectSummary/>
-     <ProjectSummary/>
+      <ProjectSummary />
+      <ProjectSummary />
+      <ProjectSummary />
     </div>
   )
 }
