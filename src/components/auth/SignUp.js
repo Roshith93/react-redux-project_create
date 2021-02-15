@@ -81,7 +81,7 @@ const SignUp = (props) => {
 }
 
 const mapStateToProps = ({
-  createProject: { email, firstName, lastName, password },
+  createUser: { email, firstName, lastName, password },
 }) => {
   return {
     email,

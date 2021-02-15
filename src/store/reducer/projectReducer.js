@@ -1,8 +1,14 @@
 import { CREATE_PROJECT } from '../actions/types'
 
 const initialState = {
-  title: '',
-  content: '',
+  projects: [
+    { id: 1, title: 'New Music out', content: 'This is a new music title' },
+    {
+      id: 2,
+      title: 'Come on your',
+      content: 'Old Favorite is a new music title',
+    },
+  ],
 }
 
 export const projectReducer = (state = initialState, action) => {

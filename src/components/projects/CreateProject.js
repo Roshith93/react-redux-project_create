@@ -59,7 +59,7 @@ const CreateProject = (props) => {
     </div>
   )
 }
-const mapStateToProps = ({ createProject: { title, content } }) => {
+const mapStateToProps = ({ projectReducer: { title, content } }) => {
   return {
     title,
     content,

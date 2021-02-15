@@ -5,6 +5,6 @@ import { createUser } from './createUserReducer'
 
 export const rootReducer = combineReducers({
   auth: authReducer,
-  createProject: projectReducer,
+  projectReducer,
   createUser,
 })
