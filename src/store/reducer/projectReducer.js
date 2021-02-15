@@ -1,4 +1,4 @@
-import { CREATE_PROJECT } from '../actions/types'
+import { CREATE_PROJECT, FETCH_PROJECTS } from '../actions/types'
 
 const initialState = {
   projects: [
@@ -18,6 +18,11 @@ export const projectReducer = (state = initialState, action) => {
         ...state,
         title: action.payload.title,
         content: action.payload.content,
+      }
+    case FETCH_PROJECTS:
+      console.log(action.payload)
+      return {
+        ...state,
       }
     default:
       return state
