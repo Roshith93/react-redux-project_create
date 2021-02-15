@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { connect } from 'react-redux'
+import { isSignedIn } from '../../store/actions/authActions'
 // = initial State
 const initialState = {
   email: '',
   password: '',
 }
-export const SignIn = () => {
+const SignIn = (props) => {
   //  = setting multiple values to state
   const [{ email, password }, setState] = useState(initialState)
   //  = onChange on the state
@@ -14,19 +16,18 @@ export const SignIn = () => {
   }
   //  = clearing the state
   const clearState = () => {
-    console.log('calling')
     setState({ ...initialState })
   }
   //  = handle submit the state
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(email, password)
+    props.isSignedIn({ email, password })
     clearState()
   }
   return (
     <div className='container'>
       <form onSubmit={handleSubmit} className='white'>
-        <h5 className='grey-text text-darken-3'>Sign In</h5>
+        <h5 className='grey-text text-darken-3'>{props.email ?? 'Sign In'}</h5>
         <div className='input-field'>
           <label htmlFor='email'>email</label>
           <input
@@ -56,3 +57,20 @@ export const SignIn = () => {
     </div>
   )
 }
+
+const mapStateToProps = ({ auth: { email, password } }) => {
+  return {
+    email,
+    password,
+  }
+}
+// const mapStateToProps = (state) => {
+//   return {
+//     email: state.auth.email,
+//     password: state.auth.password,
+//   }
+// }
+const mapDispatchToProps = {
+  isSignedIn,
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
