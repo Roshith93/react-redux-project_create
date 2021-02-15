@@ -1,7 +1,11 @@
 import axios from 'axios'
 import { CREATE_PROJECT, FETCH_PROJECTS } from './types'
 
-export const createProject = (payload) => {
+export const createProject = (payload) => (
+  dispatch,
+  getState,
+  { getFirebase, getFireStore }
+) => {
   return {
     type: CREATE_PROJECT,
     payload,
