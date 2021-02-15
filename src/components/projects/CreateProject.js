@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { connect } from 'react-redux'
+import { createProject } from '../../store/actions/projectActions'
 // = initial State
 const initialState = {
   title: '',
   content: '',
 }
-export const CreateProject = () => {
+const CreateProject = (props) => {
   //  = setting multiple values to state
   const [{ title, content }, setState] = useState(initialState)
   //  = onChange on the state
@@ -14,19 +16,18 @@ export const CreateProject = () => {
   }
   //  = clearing the state
   const clearState = () => {
-    console.log('calling')
     setState({ ...initialState })
   }
   //  = handle submit the state
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(title, content)
+    props.createProject({ title, content })
     clearState()
   }
   return (
     <div className='container'>
       <form onSubmit={handleSubmit} className='white'>
-        <h5 className='grey-text text-darken-3'>Sign In</h5>
+        <h5 className='grey-text text-darken-3'>Create Project</h5>
         <div className='input-field'>
           <label htmlFor='title'>Title</label>
           <input
@@ -58,3 +59,13 @@ export const CreateProject = () => {
     </div>
   )
 }
+const mapStateToProps = ({ createProject: { title, content } }) => {
+  return {
+    title,
+    content,
+  }
+}
+const mapDispatchToProps = {
+  createProject,
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)
