@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { connect } from 'react-redux'
+import { createUser } from '../../store/actions/createUser'
 
 const initialState = {
   email: '',
@@ -7,7 +9,7 @@ const initialState = {
   password: '',
 }
 
-export const SignUp = () => {
+const SignUp = (props) => {
   const [{ email, firstName, lastName, password }, setState] = useState(
     initialState
   )
@@ -20,6 +22,7 @@ export const SignUp = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
+    props.createUser({ email, firstName, lastName, password })
     console.log(email, firstName, lastName, password)
     resetState()
   }
@@ -76,3 +79,18 @@ export const SignUp = () => {
     </div>
   )
 }
+
+const mapStateToProps = ({
+  createProject: { email, firstName, lastName, password },
+}) => {
+  return {
+    email,
+    firstName,
+    lastName,
+    password,
+  }
+}
+const mapDispatchToProps = {
+  createUser,
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
