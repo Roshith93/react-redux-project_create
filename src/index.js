@@ -3,22 +3,26 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { getFireStore, reduxFirestore } from 'redux-firestore'
-import { getFirebase, reactReduxFirebase } from 'react-redux-firebase'
+import { getFirestore, reduxFirestore } from 'redux-firestore'
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { rootReducer } from './store/reducer/rootReducer'
-import {firebaseConfig } './config/firebaseConfig'
+import firebase from './config/firebaseConfig'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const thunkMiddleware = applyMiddleware(
-  thunk.withExtraArgument({ getFireStore, getFirebase })
+  thunk.withExtraArgument({ getFirebase, getFirestore })
 )
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   rootReducer,
-  composeEnhancers(thunkMiddleware, reduxFirestore(firebaseConfig), reactReduxFirebase(firebaseConfig))
+  composeEnhancers(
+    thunkMiddleware,
+    reactReduxFirebase(firebase),
+    reduxFirestore(firebase)
+  )
 )
 ReactDOM.render(
   <Provider store={store}>

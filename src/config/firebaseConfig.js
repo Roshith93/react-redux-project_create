@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore' // =  db
 import 'firebase/auth' // = authentication
 
-const firebaseConfig = {
+const config = {
   apiKey: 'AIzaSyDQl783kX4kn0aZr2jdmw7v23sw8l2Jqkc',
   authDomain: 'react-redux-firebase-netninja.firebaseapp.com',
   databaseURL: 'https://react-redux-firebase-netninja.firebaseio.com',
@@ -12,7 +12,9 @@ const firebaseConfig = {
   appId: '1:599551367451:web:332210da1703fead37dbbe',
 }
 
-firebase.initializeApp(firebaseConfig)
-firebase.firestore().settings({ timestampsInSnapshots: true })
+firebase.initializeApp(config)
+const firestore = firebase.firestore()
+const settings = { timestampsInSnapshots: true }
+firestore.settings(settings)
 
 export default firebase
