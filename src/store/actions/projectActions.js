@@ -1,15 +1,30 @@
 import axios from 'axios'
-import { CREATE_PROJECT, FETCH_PROJECTS } from './types'
+import {
+  CREATE_PROJECT,
+  FETCH_PROJECTS,
+  CREATING_PROJECT,
+  ERROR_RESPONSE,
+} from './types'
 
 export const createProject = (payload) => (
   dispatch,
   getState,
-  { getFirebase, getFireStore }
+  { getFirebase, getFirestore }
 ) => {
-  return {
-    type: CREATE_PROJECT,
-    payload,
-  }
+  console.log(payload)
+  const firestore = getFirestore()
+  dispatch({ type: CREATING_PROJECT })
+  firestore
+    .collection('projects')
+    .add({
+      ...payload,
+      authorFirstName: 'LOl',
+      authorLastName: 'Rad',
+      autorId: 12345,
+      createdAt: new Date(),
+    })
+    .then(() => dispatch({ type: CREATE_PROJECT, payload }))
+    .catch((error) => dispatch({ type: ERROR_RESPONSE, error }))
 }
 
 export const getProjects = () => async (dispatch) => {
