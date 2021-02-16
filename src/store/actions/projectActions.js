@@ -27,9 +27,14 @@ export const createProject = (payload) => (
     .catch((error) => dispatch({ type: ERROR_RESPONSE, error }))
 }
 
-export const getProjects = () => async (dispatch) => {
-  const response = await axios.get(
-    'https://jsonplaceholder.typicode.com/todos/1'
-  )
-  dispatch({ type: FETCH_PROJECTS, response })
+export const getProjects = () => async (
+  dispatch,
+  getState,
+  { getFirebase, getFirestore }
+) => {
+  const firestore = getFirestore()
+  const response = await firestore.collection('projects').get()
+  const mappedResponse = response.docs.map((doc) => doc.data())
+
+  dispatch({ type: FETCH_PROJECTS, payload: mappedResponse })
 }

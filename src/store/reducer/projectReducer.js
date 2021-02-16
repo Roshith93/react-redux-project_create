@@ -35,6 +35,7 @@ export const projectReducer = (state = initialState, action) => {
       console.log(action.payload)
       return {
         ...state,
+        projects: action.payload,
       }
     default:
       return state
