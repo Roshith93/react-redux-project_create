@@ -24,6 +24,7 @@ const SignIn = (props) => {
     props.isSignedIn({ email, password })
     clearState()
   }
+  console.log(props.authError)
   return (
     <div className='container'>
       <form onSubmit={handleSubmit} className='white'>
@@ -55,7 +56,7 @@ const SignIn = (props) => {
           <div
             className={`${props.authError ? 'red-text' : 'green-text'} center`}
           >
-            <p>{props.authError ?? null}</p>
+            <p>{props.authError?.message ?? null}</p>
           </div>
         </div>
       </form>
