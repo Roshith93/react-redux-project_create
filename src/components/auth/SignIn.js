@@ -52,16 +52,20 @@ const SignIn = (props) => {
           <button type='submit' className='btn pink lighten-1 z-depth-0'>
             Login
           </button>
+          <div
+            className={`${props.authError ? 'red-text' : 'green-text'} center`}
+          >
+            <p>{props.authError ?? null}</p>
+          </div>
         </div>
       </form>
     </div>
   )
 }
 
-const mapStateToProps = ({ auth: { email, password } }) => {
+const mapStateToProps = ({ auth: { authError } }) => {
   return {
-    email,
-    password,
+    authError,
   }
 }
 // const mapStateToProps = (state) => {

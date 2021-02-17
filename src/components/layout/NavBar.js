@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import {SignedInLinks} from './SignedInLinks'
+import { connect } from 'react-redux'
+
+import { SignedInLinks } from './SignedInLinks'
 import { SignedOutLinks } from './SignedOutLinks'
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <nav className='nav-wrapper grey darken-3'>
       <div className='container'>
@@ -15,3 +17,9 @@ export const Navbar = () => {
     </nav>
   )
 }
+
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {}
+}
+export default connect(mapStateToProps)(Navbar)
