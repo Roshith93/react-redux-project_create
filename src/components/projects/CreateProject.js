@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { createProject } from '../../store/actions/projectActions'
 // = initial State
 const initialState = {
@@ -7,6 +8,7 @@ const initialState = {
   content: '',
 }
 const CreateProject = (props) => {
+  const { createProject, auth } = props
   //  = setting multiple values to state
   const [{ title, content }, setState] = useState(initialState)
   //  = onChange on the state
@@ -21,9 +23,10 @@ const CreateProject = (props) => {
   //  = handle submit the state
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.createProject({ title, content })
+    createProject({ title, content })
     clearState()
   }
+  if (!auth?.uid) return <Redirect to='/signin'></Redirect>
   return (
     <div className='container'>
       <form onSubmit={handleSubmit} className='white'>
@@ -59,10 +62,14 @@ const CreateProject = (props) => {
     </div>
   )
 }
-const mapStateToProps = ({ projectReducer: { title, content } }) => {
+const mapStateToProps = ({
+  projectReducer: { title, content },
+  firebase: { auth },
+}) => {
   return {
     title,
     content,
+    auth,
   }
 }
 const mapDispatchToProps = {

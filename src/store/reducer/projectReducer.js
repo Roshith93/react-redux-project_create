@@ -8,14 +8,7 @@ import {
 const initialState = {
   loading: false,
   error: null,
-  projects: [
-    { id: 1, title: 'New Music out', content: 'This is a new music title' },
-    {
-      id: 2,
-      title: 'Come on your',
-      content: 'Old Favorite is a new music title',
-    },
-  ],
+  projects: [],
 }
 
 export const projectReducer = (state = initialState, action) => {
@@ -32,7 +25,6 @@ export const projectReducer = (state = initialState, action) => {
     case ERROR_RESPONSE:
       return { ...state, error: action.error }
     case FETCH_PROJECTS:
-      console.log(action.payload)
       return {
         ...state,
         projects: action.payload,

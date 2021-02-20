@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { createUser } from '../../store/actions/createUser'
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
 }
 
 const SignUp = (props) => {
+  const { createUser, auth } = props
   const [{ email, firstName, lastName, password }, setState] = useState(
     initialState
   )
@@ -22,10 +24,10 @@ const SignUp = (props) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.createUser({ email, firstName, lastName, password })
-    console.log(email, firstName, lastName, password)
+    createUser({ email, firstName, lastName, password })
     resetState()
   }
+  if (auth?.uid) return <Redirect to='/'></Redirect>
   return (
     <div className='container'>
       <form onSubmit={handleSubmit} className='white'>
@@ -82,12 +84,14 @@ const SignUp = (props) => {
 
 const mapStateToProps = ({
   createUser: { email, firstName, lastName, password },
+  firebase: { auth },
 }) => {
   return {
     email,
     firstName,
     lastName,
     password,
+    auth,
   }
 }
 const mapDispatchToProps = {

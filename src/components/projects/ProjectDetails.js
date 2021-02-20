@@ -1,22 +1,22 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
+import { Redirect } from 'react-router-dom'
 
 const ProjectDetails = (props) => {
-  // const id = props.match.params.id
-  console.log(props.project)
-  const isProject = props.project
-  if (isProject) {
+  const { project, auth } = props
+  if (!auth?.uid) return <Redirect to='/'></Redirect>
+  if (project) {
     return (
       <div className='container section project-details'>
         <div className='card z-depth-0'>
           <div className='card-content'>
-            <span className='card-title'>{isProject.title}</span>
-            <p>{isProject.content}</p>
+            <span className='card-title'>{project.title}</span>
+            <p>{project.content}</p>
           </div>
           <div className='card-action grey lighten-4 grey-text'>
-            <div>{`${isProject.authorFirstName} - ${isProject.autorId}`}</div>
-            <div>{isProject.createdAt.seconds}</div>
+            <div>{`${project.authorFirstName} - ${project.autorId}`}</div>
+            <div>{project.createdAt.seconds}</div>
           </div>
         </div>
       </div>
@@ -35,6 +35,7 @@ const mapStateToProps = (state, ownProps) => {
   const project = projects ? projects[id] : null
   return {
     project,
+    auth: state.firebase.auth,
   }
 }
 export default compose(

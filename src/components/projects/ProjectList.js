@@ -2,7 +2,7 @@ import { ProjectSummary } from './ProjectSummary'
 import { Link } from 'react-router-dom'
 
 const ProjectList = ({ projects }) => {
-  const projectDatas = projects.projects
+  const projectDatas = projects
   return (
     <div className='project-list section'>
       {projectDatas &&

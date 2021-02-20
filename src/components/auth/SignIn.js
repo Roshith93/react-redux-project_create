@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
 import { isSignedIn } from '../../store/actions/authActions'
 // = initial State
 const initialState = {
@@ -7,6 +9,7 @@ const initialState = {
   password: '',
 }
 const SignIn = (props) => {
+  const { isSignedIn, authError, auth } = props
   //  = setting multiple values to state
   const [{ email, password }, setState] = useState(initialState)
   //  = onChange on the state
@@ -21,10 +24,10 @@ const SignIn = (props) => {
   //  = handle submit the state
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.isSignedIn({ email, password })
+    isSignedIn({ email, password })
     clearState()
   }
-  console.log(props.authError)
+  if (auth?.uid) return <Redirect to='/'></Redirect>
   return (
     <div className='container'>
       <form onSubmit={handleSubmit} className='white'>
@@ -53,10 +56,8 @@ const SignIn = (props) => {
           <button type='submit' className='btn pink lighten-1 z-depth-0'>
             Login
           </button>
-          <div
-            className={`${props.authError ? 'red-text' : 'green-text'} center`}
-          >
-            <p>{props.authError?.message ?? null}</p>
+          <div className={`${authError ? 'red-text' : 'green-text'} center`}>
+            <p>{authError?.message ?? null}</p>
           </div>
         </div>
       </form>
@@ -64,9 +65,10 @@ const SignIn = (props) => {
   )
 }
 
-const mapStateToProps = ({ auth: { authError } }) => {
+const mapStateToProps = ({ auth: { authError }, firebase: { auth } }) => {
   return {
     authError,
+    auth,
   }
 }
 // const mapStateToProps = (state) => {
