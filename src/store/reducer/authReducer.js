@@ -3,12 +3,15 @@ import {
   LOGIN_FAILED,
   SIGNED_OUT,
   SIGNED_OUT_FAILED,
+  SIGN_UP,
+  SIGN_UP_ERROR,
 } from '../actions/types'
 
 const initialState = {
   // email: '',
   // password: '',
   authError: null,
+  error: null,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -35,6 +38,14 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
       }
+
+    case SIGN_UP:
+      console.log(action.payload)
+      return { ...state }
+
+    case SIGN_UP_ERROR:
+      console.log(action.error)
+      return { ...state, error: action.error }
     default:
       return state
   }

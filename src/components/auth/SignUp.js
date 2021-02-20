@@ -11,7 +11,8 @@ const initialState = {
 }
 
 const SignUp = (props) => {
-  const { createUser, auth } = props
+  const { createUser, auth, error } = props
+  console.log(error)
   const [{ email, firstName, lastName, password }, setState] = useState(
     initialState
   )
@@ -76,22 +77,19 @@ const SignUp = (props) => {
           <button type='submit' className='btn pink lighten-1 z-depth-0'>
             Sign Up
           </button>
+          <div className={`${error ? 'red-text' : 'green-text'} center`}>
+            <p>{error?.message}</p>
+          </div>
         </div>
       </form>
     </div>
   )
 }
 
-const mapStateToProps = ({
-  createUser: { email, firstName, lastName, password },
-  firebase: { auth },
-}) => {
+const mapStateToProps = ({ auth: { error }, firebase: { auth } }) => {
   return {
-    email,
-    firstName,
-    lastName,
-    password,
     auth,
+    error,
   }
 }
 const mapDispatchToProps = {
