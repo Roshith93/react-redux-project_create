@@ -6,10 +6,10 @@ const ProjectList = ({ projects }) => {
   return (
     <div className='project-list section'>
       {projectDatas &&
-        projectDatas.map(({ id, title, content }) => {
+        projectDatas.map((project) => {
           return (
-            <Link to={`project/${id}`} key={id}>
-              <ProjectSummary title={title} content={content} />
+            <Link to={`project/${project.id}`} key={project.id}>
+              <ProjectSummary project={project} />
             </Link>
           )
         })}

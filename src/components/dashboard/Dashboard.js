@@ -8,6 +8,7 @@ import ProjectList from '../projects/ProjectList'
 
 const Dashboard = (props) => {
   const { projects, auth } = props
+  console.log(projects)
   if (!auth.uid) return <Redirect to='/signin' />
   return (
     <div className='dashboard container'>

@@ -11,16 +11,17 @@ export const createProject = (payload) => (
   getState,
   { getFirebase, getFirestore }
 ) => {
-  console.log(payload)
   const firestore = getFirestore()
+  const { firstName, lastName } = getState().firebase?.profile
+  const authorId = getState().firebase?.auth?.uid
   dispatch({ type: CREATING_PROJECT })
   firestore
     .collection('projects')
     .add({
       ...payload,
-      authorFirstName: 'LOl',
-      authorLastName: 'Rad',
-      autorId: 12345,
+      authorFirstName: firstName,
+      authorLastName: lastName,
+      autorId: authorId,
       createdAt: new Date(),
     })
     .then(() => dispatch({ type: CREATE_PROJECT, payload }))

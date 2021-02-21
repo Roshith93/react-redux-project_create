@@ -24,6 +24,7 @@ const CreateProject = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     createProject({ title, content })
+    props.history.push('/')
     clearState()
   }
   if (!auth?.uid) return <Redirect to='/signin'></Redirect>

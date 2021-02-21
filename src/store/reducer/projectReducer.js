@@ -14,11 +14,10 @@ const initialState = {
 export const projectReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_PROJECT:
+      console.log('hee')
       return {
         ...state,
         loading: false,
-        title: action.payload.title,
-        content: action.payload.content,
       }
     case CREATING_PROJECT:
       return { ...state, loading: true }
